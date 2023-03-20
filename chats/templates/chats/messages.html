@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{request.user.username}}
+{% endblock title %}
+{% block content %}
+    {% if qs %}  
+        {% for item in qs %}
+        <div class="card">
+            <div class="card-header">
+              {% if request.user == item.sender %}
+                {{item.receiver.username}}
+                {% elif request.user == item.receiver%}
+                {{item.sender.username}}
+              {% endif %}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+              {% if item.last_message %}
+              <a href="{{item.get_absolute_url}}" class="btn btn-primary">{{item.last_message.text}}</a>
+                {% else %}
+                <a href="{{item.get_absolute_url}}" class="btn btn-primary">{{item.default_message}}</a>
+              {% endif %}
+                </h5>
+            </div>
+          </div>
+        {% endfor %}     
+    {% endif %}
+{% endblock content %}
+    

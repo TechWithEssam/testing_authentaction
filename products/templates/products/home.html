@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    home
+{% endblock title %}
+    
+
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+    
+    {% for item in obj %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{item.first_image.image.url}}" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+        
+  </div>
+{% endblock content %}
+    
+
+
+{% block script %}
+  <script src="{% static 'products/home.js' %}" defer></script>
+{% endblock script %}
+  

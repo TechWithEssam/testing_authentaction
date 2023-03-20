@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{request.user.username}}
+{% endblock title %}
+    
+
+
+
+{% block content %}
+{{ room_slug|json_script:"room-slug" }}
+
+<div class="card mt-5 container mb-5">
+    <h5 class="card-header">
+        
+        {% if request.user == qs.sender %}
+            {{qs.receiver.username}} -> {{qs.product.name}}
+        {% elif request.user == qs.receiver %}
+        {{qs.sender.username}} -> {{qs.product.name}}
+        {% endif %}
+            
+    </h5>
+    <div class="card-body">
+        <p class="card-text">{{qs.default_message}}</p>
+        {% for item in qs.all_messages %}
+ 
+        <div class="card mt-3 mb-3" style="width: 18rem;">
+            <small>{{item.user.username}}</small><p class="card-text">{{item.text}}</p>
+          </div>
+      {% endfor %}
+      <hr class="mt-5">
+            <input type="hidden" name="chat_id" value="{{qs.pk}}">
+          <div class="">
+            <input id="room-name-input" type="text" class="form-control" size="100"><br>
+            <input id="chat-message-input" class="btn btn-outline-secondary mt-3" type="button" value="Enter">
+          </div>
+    </div>
+</div>
+<p id="slug">{{qs.slug}}</p>
+
+{% endblock content %}
+    
+
+
+
+
+
+{% block script %}
+    <script src="{% static 'chats/chat.js' %}"></script>
+{% endblock script %}
+    
+
+
+
+
+
+
